@@ -1,13 +1,14 @@
 # Apache Cheat Sheet
 ## Setup a Virtual Domain
-NameVirtualHost *
-<VirtualHost *>
-  DocumentRoot /web/example.com/www
-  ServerName www.example.com
-  ServerAlias example.com
-  CustomLog /web/example.com/logs/access.log combined
-  ErrorLog /web/example.com/logs/error.log
-</VirtualHost>
+
+    NameVirtualHost *
+    <VirtualHost *>
+      DocumentRoot /web/example.com/www
+      ServerName www.example.com
+      ServerAlias example.com
+      CustomLog /web/example.com/logs/access.log combined
+      ErrorLog /web/example.com/logs/error.log
+    </VirtualHost>
 
 ## Include another conf file
 Include /etc/apache/virtual-hosts/*.conf
