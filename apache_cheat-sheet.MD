@@ -1,5 +1,10 @@
 # Apache Cheat Sheet
-## Setup a Virtual Domain
+## Manage 
+sudo service apache2 start
+sudo service apache2 stop
+sudo service apache2 restart
+
+## Setup a Virtual
 
     NameVirtualHost *
     <VirtualHost *>
@@ -62,7 +67,6 @@ AuthName "Authentication Required"
     Order Deny,Allow
     Deny from all
     Allow from 176.16.0.0/16
-
 ## mod_rewrite
 ### Turn on the rewrite engine
 RewriteEngine On
