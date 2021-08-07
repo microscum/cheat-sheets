@@ -5,4 +5,4 @@
 
 # openssl
 ## openssl cheat sheet
-![alt text ](https://github.com/microscum/cheat-sheets/tree/main/files/openssl_cheat-sheets.md)
+![alt text ](https://github.com/microscum/cheat-sheets/main/files/openssl_cheat-sheets.md)
