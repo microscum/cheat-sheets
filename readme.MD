@@ -4,5 +4,5 @@
 ![alt text ](https://github.com/microscum/cheat-sheets/blob/main/images/mod_rewrite-cheatsheet.png)
 
 # openssl
-## openssl cheat sheet
-![alt text ](https://github.com/microscum/cheat-sheets/tree/main/files/apache_cheat-sheet.MD)
+## [openssl cheat sheet](https://github.com/microscum/cheat-sheets/tree/main/files/apache_cheat-sheet.MD)
+![alt text ](https://github.com/microscum/cheat-sheets/blob/main/files/apache_cheat-sheet.MD)
