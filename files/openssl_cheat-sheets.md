@@ -14,7 +14,8 @@ openssl req -new -sha256 -newkey rsa:2048 -days 1095 -nodes -x509 -keyout server
 perl -pi -e 's/\015$//' badcertwithlf.pem
 
 # match keys, certs and requests
-Simply compare the md5 hash of the private key modulus, the certificate modulus, or the CSR modulus and it tells you whether they match or not.
+
+   Simply compare the md5 hash of the private key modulus, the certificate modulus, or the CSR modulus and it tells you whether they match or not.
    openssl x509 -noout -modulus -in yoursignedcert.pem | openssl md5
    openssl rsa -noout -modulus -in yourkey.key | openssl md5
    openssl req -noout -modulus -in yourcsrfile.csr | openssl md5
@@ -33,6 +34,7 @@ openssl x509 -x509toreq -in server.crt -out server.csr -signkey server.key
 /usr/share/ssl/misc/CA.sh -sign
 
 # Decrypt private key (so Apache/nginx won't ask for it)
+
   openssl rsa -in newkey.pem -out wwwkeyunsecure.pem
   cat wwwkeyunsecure.pem >> /etc/ssl/certs/imapd.pem
 
@@ -69,24 +71,29 @@ keytool -importkeystore -srckeystore keystore.jks -srcstoretype JKS -deststorety
 keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -deststoretype JKS -destkeystore keystore.jks
 
 # Revoke
+
   openssl ca -revoke CA/newcerts/cert.pem
   openssl ca -gencrl -out CA/crl/ca.crl
   openssl crl -text -noout -in CA/crl/ca.crl
   openssl crl -text -noout -in CA/crl/ca.der -inform der
 
 # Base64 encoding/decoding
+
   openssl enc -base64 -in myfile -out myfile.b64
   openssl enc -d -base64 -in myfile.b64 -out myfile.decoded
   echo username:passwd | openssl base64
   echo dXNlcm5hbWU6cGFzc3dkCg== | openssl base64 -d
 
 #  Generate a Java keystore and key pair
+
   keytool -genkey -alias mydomain -keyalg RSA -keysize 2048 -keystore mykeystore.jks
 
 # Generate a certificate signing request (CSR) for an existing Java keystore
+
   keytool -certreq -alias mydomain -keyalg RSA -file mydomain.csr -keystore mykeystore.jks
 
 # Import a root or intermediate CA certificate to an existing Java keystore
+
   keytool -import -trustcacerts -alias ca-root -file ca-root.pem -keystore cacerts
   keytool -import -trustcacerts -alias thawte-root -file thawte.crt -keystore keystore.jks
 
