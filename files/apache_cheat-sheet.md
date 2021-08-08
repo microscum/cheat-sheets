@@ -4,7 +4,7 @@ sudo service apache2 start
 sudo service apache2 stop
 sudo service apache2 restart
 
-## Setup a Virtual
+## Setup a Virtual Host
 
     NameVirtualHost *
     <VirtualHost *>
