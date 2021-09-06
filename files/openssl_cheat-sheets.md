@@ -10,17 +10,12 @@
 # Self Signed
       openssl req -new -sha256 -newkey rsa:2048 -days 1095 -nodes -x509 -keyout server.key -out server.pem
 
-# crlf fix
-      perl -pi -e 's/\015$//' badcertwithlf.pem
-
 # match keys, certs and requests
 
       Simply compare the md5 hash of the private key modulus, the certificate modulus, or the CSR modulus and it tells you whether they match or not.
       openssl x509 -noout -modulus -in yoursignedcert.pem | openssl md5
       openssl rsa -noout -modulus -in yourkey.key | openssl md5
       openssl req -noout -modulus -in yourcsrfile.csr | openssl md5
-# criar uma CA
-      /usr/share/ssl/misc/CA -newca
 
 # Generate a CSR
       /usr/share/ssl/misc/CA.sh -newreq
@@ -48,13 +43,14 @@
 # list P7B
     openssl pkcs7 -in certs.p7b -print_certs -out certs.pem
 
-# PEM -> PFX
-      openssl pkcs12 -export -out alvaro.p12 -name "Certificado do Alvaro" -inkey newreq.pem -in newcert.pem -certfile cacert.pem
+# .pem -> .pfx
+Convert CER and Private Key to PFX:    
+      openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile  cacert.cer
 
 # PFX -> pem (with key)
       openssl pkcs12 -in ClientAuthCert.pfx -out ClientAuthCertKey.pem -nodes -clcerts
 
-# DER (.crt .cer .der) to PEM
+# DER (.crt .cer .der) -> PEM
       openssl x509 -inform der -in MYCERT.cer -out MYCERT.pem
 
 # PEM -> DER
