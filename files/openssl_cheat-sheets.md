@@ -18,13 +18,10 @@
       openssl req -noout -modulus -in yourcsrfile.csr | openssl md5
 
 # Generate a CSR
-      /usr/share/ssl/misc/CA.sh -newreq
+
 
 # Cert -> CSR
       openssl x509 -x509toreq -in server.crt -out server.csr -signkey server.key
-
-# Sign
-      /usr/share/ssl/misc/CA.sh -sign
 
 # Decrypt private key (so Apache/nginx won't ask for it)
      openssl rsa -in newkey.pem -out wwwkeyunsecure.pem
@@ -42,25 +39,29 @@
 
 # list P7B
     openssl pkcs7 -in certs.p7b -print_certs -out certs.pem
-
-# .pem -> .pfx
+# Certificate Conversion
+## .cer -> .pfx (with key)
 Convert CER and Private Key to PFX:    
-      openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile  cacert.cer
+      openssl pkcs12 -export -in certificatename.cer -inkey privateKey.key -out certificatename.pfx -certfile cacert.cer
 
-# PFX -> pem (with key)
+## .cer -> .pfx
+openssl pkcs12 -export -nokeys -in CertificateFile.pem -out CertificateFile.pfx
+
+
+## .pfx -> .pem (with key)
       openssl pkcs12 -in ClientAuthCert.pfx -out ClientAuthCertKey.pem -nodes -clcerts
 
-# DER (.crt .cer .der) -> PEM
+## .der (.crt .cer .der) -> .pem
       openssl x509 -inform der -in MYCERT.cer -out MYCERT.pem
 
-# PEM -> DER
+## .pem -> .der
      openssl x509 -outform der -in MYCERT.pem -out MYCERT.der
      openssl rsa -in key.pem -outform DER -out keyout.der
 
-# JKS -> P12
+## .jks -> .p12
       keytool -importkeystore -srckeystore keystore.jks -srcstoretype JKS -deststoretype PKCS12 -destkeystore keystore.p12
 
-# P12 -> JKS
+## .p12 -> .jks
       keytool -importkeystore -srckeystore keystore.p12 -srcstoretype PKCS12 -deststoretype JKS -destkeystore keystore.jks
 
 # Revoke
@@ -74,8 +75,7 @@ Convert CER and Private Key to PFX:
      openssl enc -d -base64 -in myfile.b64 -out myfile.decoded
      echo username:passwd | openssl base64
      echo dXNlcm5hbWU6cGFzc3dkCg== | openssl base64 -d
-
-#  Generate a Java keystore and key pair
+# Generate a Java keystore and key pair
      keytool -genkey -alias mydomain -keyalg RSA -keysize 2048 -keystore mykeystore.jks
 
 # Generate a certificate signing request (CSR) for an existing Java keystore
